@@ -4,6 +4,16 @@ Download ics (Internet Calendaring and Scheduling Core Object Specification) fil
 and run `make r`. Example output:
 
 ```bash
+$ tree
+ .
+├──  first.ics
+├──  second.ics
+├──  third.ics
+├──  ics.py
+├──  Makefile
+├──  README.md
+├──  ruff.toml
+
 $ make r
 python3 ics.py
 2025/02/26 14:45~15:25 > first.ics
@@ -19,7 +29,7 @@ You may run `make c` to delete all ics files.
 
 ## Warning
 
-It was made for my personal use case.
+This project was made for my personal use case.
 Right now it only parses en-US summaries, and two time zones:
 
 - E. South America Standard Time
