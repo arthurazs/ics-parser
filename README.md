@@ -5,14 +5,14 @@ and run `make r`. Example output:
 
 ```bash
 $ tree
- .
-├──  first.ics
-├──  second.ics
-├──  third.ics
-├──  ics.py
-├──  Makefile
-├──  README.md
-├──  ruff.toml
+.
+├── first.ics
+├── second.ics
+├── third.ics
+├── ics.py
+├── Makefile
+├── README.md
+├── ruff.toml
 
 $ make r
 python3 ics.py
