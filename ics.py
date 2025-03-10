@@ -46,9 +46,11 @@ def parse_dt_start(path: Path) -> IcsReturn:
                 if title == "" or dt_start is None or dt_end is None:
                     raise ValueError(f"Could not find {SUMMARY1} or {SUMMARY2} or {DTSTART} or {DTEND} in {path}")
                 link = line.removeprefix(URL).strip()
-                tmp = next(ics)
-                if tmp[0] == " ":
-                    link += tmp.strip()
+                while tmp := next(ics):
+                    if tmp[0] == " ":
+                        link += tmp.strip()
+                    else:
+                        break
                 return IcsReturn(title, path, dt_start, dt_end, link)
     raise ValueError(f"Could not find {URL} in {path}")
 
