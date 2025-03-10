@@ -12,7 +12,8 @@ class IcsReturn:
     url: str
 
 
-SUMMARY = "SUMMARY;LANGUAGE=en-US:"
+SUMMARY1 = "SUMMARY;LANGUAGE=en-US:"
+SUMMARY2 = "SUMMARY;LANGUAGE=pt-BR:"
 DTSTART = "DTSTART;TZID"
 DTEND = "DTEND;TZID"
 DTFMT = "%Y%m%dT%H%M%S"
@@ -27,8 +28,10 @@ def parse_dt_start(path: Path) -> IcsReturn:
     dt_end: dt.datetime | None = None
     with path.open() as ics:
         while line := next(ics):
-            if line.startswith(SUMMARY):
-                title = line.removeprefix(SUMMARY).strip()
+            if line.startswith(SUMMARY1):
+                title = line.removeprefix(SUMMARY1).strip()
+            elif line.startswith(SUMMARY2):
+                title = line.removeprefix(SUMMARY2).strip()
             if line.startswith(DTSTART):
                 try:
                     dt_start = dt.datetime.strptime(line.strip(), f"{DTSTART}={TIMEZONE1}:{DTFMT}")
@@ -41,7 +44,7 @@ def parse_dt_start(path: Path) -> IcsReturn:
                     dt_end = dt.datetime.strptime(line.strip(), f"{DTEND}={TIMEZONE2}:{DTFMT}")
             if line.startswith(URL):
                 if title == "" or dt_start is None or dt_end is None:
-                    raise ValueError(f"Could not find {SUMMARY} or {DTSTART} or {DTEND} in {path}")
+                    raise ValueError(f"Could not find {SUMMARY1} or {SUMMARY2} or {DTSTART} or {DTEND} in {path}")
                 link = line.removeprefix(URL).strip()
                 tmp = next(ics)
                 if tmp[0] == " ":
